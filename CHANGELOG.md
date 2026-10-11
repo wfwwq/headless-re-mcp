@@ -1612,7 +1612,7 @@ die/exeinfope/upx/de4dot 各自的 `_capture_process` 采用同一范式收敛�
 
 首个公开快照：IDA 与 x64dbg 双后端、MCP 工具面、WebUI 工作台、会话与产物持久化。
 
-[Unreleased]: https://github.com/kumburovicbranko682-boop/headless-re-mcp/compare/v0.2.1...HEAD
-[0.2.1]: https://github.com/kumburovicbranko682-boop/headless-re-mcp/releases/tag/v0.2.1
-[0.2.0]: https://github.com/kumburovicbranko682-boop/headless-re-mcp/releases/tag/v0.2.0
-[0.1.0]: https://github.com/kumburovicbranko682-boop/headless-re-mcp/releases/tag/v0.1.0
+[Unreleased]: https://github.com/wfwwq/headless-re-mcp/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/wfwwq/headless-re-mcp/releases/tag/v0.2.1
+[0.2.0]: https://github.com/wfwwq/headless-re-mcp/releases/tag/v0.2.0
+[0.1.0]: https://github.com/wfwwq/headless-re-mcp/releases/tag/v0.1.0

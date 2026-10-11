@@ -17,7 +17,7 @@
 
 **不要**用公开 issue 报告安全问题。请使用 GitHub 的私密漏洞报告:
 仓库页面 **Security → Report a vulnerability**
-([私密报告入口](https://github.com/kumburovicbranko682-boop/headless-re-mcp/security/advisories/new))。
+([私密报告入口](https://github.com/wfwwq/headless-re-mcp/security/advisories/new))。
 
 报告请尽量包含:
 

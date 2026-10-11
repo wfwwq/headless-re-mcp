@@ -13,7 +13,7 @@ Windows 与 Linux x86_64 上的无分析器窗口逆向 MCP（v0.2.1）。跨平
 | Windows 10/11 x64 或 Linux x86_64 | Windows 为完整 PE 动态调试主机；Linux 支持跨平台核心与可移植后端 |
 | Python 3.11+ | Linux/源码运行需要；Windows MSI 自带 3.12 运行时 |
 | IDA Professional 9.x（含 idalib，可选） | 商业软件，本仓库不捆绑；doctor 按宿主查找 `idalib.dll` 或 `libidalib.so` |
-| x64dbg `headless.exe`（x86/x64，仅 Windows） | 可从 [deps Release](https://github.com/kumburovicbranko682-boop/headless-re-mcp/releases/tag/v0.1.0-deps) 取，或本地构建 |
+| x64dbg `headless.exe`（x86/x64，仅 Windows） | 可从 [deps Release](https://github.com/wfwwq/headless-re-mcp/releases/tag/v0.1.0-deps) 取，或本地构建 |
 | 可选 CLI | UPX / DIE `diec` / de4dot / cdb 等：用户自备，缺失则降级 |
 
 ```powershell
@@ -58,7 +58,7 @@ Linux 发布/分发使用标准 wheel 或 sdist；Windows MSI 保持不变。
 
 ### Windows：用安装包（不需要先装 Python）
 
-到 [Releases](https://github.com/kumburovicbranko682-boop/headless-re-mcp/releases/latest) 下载
+到 [Releases](https://github.com/wfwwq/headless-re-mcp/releases/latest) 下载
 `headless-re-mcp.msi`（约 33 MB，per-user 安装到 `%LocalAppData%\HeadlessReMcp`，无需管理员）。
 Python 运行时与全部依赖在包内，装完直接用：
 
