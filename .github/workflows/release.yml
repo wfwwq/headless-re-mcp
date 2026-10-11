@@ -69,8 +69,52 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "$env:GITHUB_REF_NAME" `
-            artifacts/release/headless-re-mcp.msi `
-            artifacts/release/headless-re-mcp.msi.sha256 `
-            --title "$env:GITHUB_REF_NAME" `
-            --generate-notes
+          # Re-pushing a tag must not turn CI red, and `gh release create`
+          # refuses outright once a release for that tag exists, so publishing
+          # has to be idempotent: create the release when it is missing,
+          # otherwise replace the installer and checksum on the published one.
+          $tag = "$env:GITHUB_REF_NAME"
+          $repo = "$env:GITHUB_REPOSITORY"
+
+          # A missing release and a repository this token cannot read both
+          # answer 404, so the tag probe alone cannot tell "nothing published
+          # yet" from "no access". Confirm the repository is readable first;
+          # only then does a 404 on the tag mean "go create it".
+          #
+          # The probes are expected to fail, and the runner sets
+          # $ErrorActionPreference = 'Stop', under which stderr from a native
+          # command can become a terminating error before the exit code is
+          # read. They run with that relaxed for the duration of the probe.
+          $previous = $ErrorActionPreference
+          $ErrorActionPreference = "Continue"
+          try {
+            gh api "repos/$repo" --silent 2>$null
+            $repoReadable = $LASTEXITCODE -eq 0
+            gh api "repos/$repo/releases/tags/$tag" --silent 2>$null
+            $releaseExists = $LASTEXITCODE -eq 0
+          } finally {
+            $ErrorActionPreference = $previous
+          }
+
+          if (-not $repoReadable) { throw "cannot read $repo with this token" }
+
+          if ($releaseExists) {
+            # Idempotent path: the release is already published, so replace
+            # its assets rather than failing on the duplicate.
+            gh release upload $tag `
+              artifacts/release/headless-re-mcp.msi `
+              artifacts/release/headless-re-mcp.msi.sha256 `
+              --clobber `
+              --repo $repo
+          } else {
+            # `create` attaches to the tag that is already there; it only
+            # objects to a duplicate release.
+            gh release create $tag `
+              artifacts/release/headless-re-mcp.msi `
+              artifacts/release/headless-re-mcp.msi.sha256 `
+              --title $tag `
+              --generate-notes `
+              --repo $repo
+          }
+
+          if ($LASTEXITCODE -ne 0) { throw "publishing release $tag failed (exit $LASTEXITCODE)" }
